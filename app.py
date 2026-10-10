@@ -101,3 +101,20 @@ elif page == "Study Planner":
 
 st.divider()
 st.caption("StudyBuddy AI • Better Study Habits, Brighter Future 💙")
+
+elif page == "AI Study Assistant":
+    st.header("🤖 AI Study Assistant")
+    st.write("Ask a study question and get a simple explanation!")
+
+    topic = st.text_input("Enter your question")
+
+    if st.button("Explain"):
+        if topic.strip():
+            st.info(
+                "Your question: " + topic +
+                "\n\nNext, we'll connect an AI model "
+                "to generate real answers!"
+            )
+        else:
+            st.warning("Please enter a question first.")
+
