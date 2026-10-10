@@ -99,8 +99,8 @@ elif page == "Study Planner":
         else:
             st.warning("Please enter a task first.")
 
-st.divider()
-st.caption("StudyBuddy AI • Better Study Habits, Brighter Future 💙")
+
+
 
 elif page == "AI Study Assistant":
     st.header("🤖 AI Study Assistant")
@@ -118,3 +118,4 @@ elif page == "AI Study Assistant":
         else:
             st.warning("Please enter a question first.")
 
+st.caption("StudyBuddy AI • Better Study Habits, Brighter Future 💙")
