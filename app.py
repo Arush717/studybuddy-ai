@@ -12,7 +12,7 @@ st.caption("Learn • Practice • Grow")
 st.sidebar.title("📚 StudyBuddy")
 page = st.sidebar.radio(
     "Choose a page",
-    ["Home", "My Notes", "Quiz", "Study Planner"]
+  ["Home", "My Notes", "Quiz", "Study Planner", "AI Study Assistant"]
 )
 
 if page == "Home":
