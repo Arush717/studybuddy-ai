@@ -143,6 +143,7 @@ elif page == "AI Study Assistant":
                     matched_answer = answer
                     break
 
+            
             if matched_answer:
                 st.success(matched_answer)
             else:
@@ -152,6 +153,6 @@ elif page == "AI Study Assistant":
                     "or water cycle."
                 )
         else:
-           
+            st.warning("Please enter a question first.")
 
 st.caption("StudyBuddy AI • Better Study Habits, Brighter Future 💙")
