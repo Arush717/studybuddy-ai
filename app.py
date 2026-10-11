@@ -173,15 +173,15 @@ elif page == "Quiz":
         ]
     }
 
-subject = st.selectbox(
+    subject = st.selectbox(
         "Choose your subject",
         list(quiz_data.keys())
     )
-difficulty = st.selectbox(
+    difficulty = st.selectbox(
     "Choose difficulty",
     ["Easy", "Medium", "Hard"]
 )
-question_count = st.slider(
+    question_count = st.slider(
         "Number of questions",
         min_value=3,
         max_value=5,
