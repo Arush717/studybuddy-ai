@@ -64,6 +64,7 @@ elif page == "My Notes":
 
 
 
+
 elif page == "Quiz":
     import random
 
@@ -190,7 +191,6 @@ elif page == "Quiz":
         )
         st.session_state.quiz_questions = selected_questions
         st.session_state.quiz_subject = subject
-        st.session_state.quiz_submitted = False
 
     if (
         "quiz_questions" in st.session_state
@@ -251,6 +251,7 @@ elif page == "Quiz":
                 st.success("Good job! Keep practising.")
             else:
                 st.info("Review the explanations and try again.")
+
 
 
 
