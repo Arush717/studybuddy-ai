@@ -62,24 +62,91 @@ elif page == "My Notes":
     - Automation
     """)
 
+
 elif page == "Quiz":
     st.header("📝 Python Quiz")
+    st.write("Test your Python knowledge!")
 
-    question = st.radio(
-        "What does print() do in Python?",
-        [
-            "Deletes a file",
-            "Displays information",
-            "Creates a website automatically",
-            "Turns off the computer"
-        ]
-    )
+    questions = [
+        {
+            "question": "What does print() do in Python?",
+            "options": [
+                "Deletes a file",
+                "Displays information",
+                "Creates a website automatically",
+                "Turns off the computer"
+            ],
+            "answer": "Displays information",
+            "explanation": "print() displays text or other values on the screen."
+        },
+        {
+            "question": "Which symbol starts a comment in Python?",
+            "options": ["//", "#", "/*", "$"],
+            "answer": "#",
+            "explanation": "A # symbol starts a single-line comment in Python."
+        },
+        {
+            "question": "Which of these is a string in Python?",
+            "options": ["25", '"Hello"', "True", "3.14"],
+            "answer": '"Hello"',
+            "explanation": "A string is text. Text is commonly written inside quotes."
+        },
+        {
+            "question": "Which keyword is used to define a function?",
+            "options": ["func", "function", "def", "make"],
+            "answer": "def",
+            "explanation": "Python uses the def keyword to define a function."
+        },
+        {
+            "question": "What is the result of 3 + 2?",
+            "options": ["32", "5", "6", "1"],
+            "answer": "5",
+            "explanation": "The + operator adds the two numbers: 3 + 2 = 5."
+        }
+    ]
 
-    if st.button("Check my answer"):
-        if question == "Displays information":
-            st.success("Correct! Great job! 🎉")
+    with st.form("python_quiz"):
+        answers = []
+
+        for i, q in enumerate(questions):
+            st.subheader(f"Question {i + 1}")
+            st.write(q["question"])
+
+            selected = st.radio(
+                "Choose your answer:",
+                q["options"],
+                key=f"quiz_question_{i}",
+                index=None
+            )
+            answers.append(selected)
+
+        submitted = st.form_submit_button("Check My Score")
+
+    if submitted:
+        score = 0
+
+        for i, q in enumerate(questions):
+            st.write(f"**Question {i + 1}: {q['question']}**")
+
+            if answers[i] == q["answer"]:
+                score += 1
+                st.success("Correct! " + q["explanation"])
+            else:
+                st.error(
+                    f"Correct answer: {q['answer']}. "
+                    + q["explanation"]
+                )
+
+        st.subheader(f"Your score: {score}/{len(questions)}")
+
+        if score == len(questions):
+            st.balloons()
+            st.success("Perfect score! Excellent work!")
+        elif score >= 3:
+            st.success("Good job! Keep practising.")
         else:
-            st.error("Not quite. Try again!")
+            st.info("Keep learning and try again!")
+
 
 elif page == "Study Planner":
     st.header("📅 My Study Planner")
