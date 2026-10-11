@@ -63,89 +63,195 @@ elif page == "My Notes":
     """)
 
 
+
 elif page == "Quiz":
-    st.header("📝 Python Quiz")
-    st.write("Test your Python knowledge!")
+    import random
 
-    questions = [
-        {
-            "question": "What does print() do in Python?",
-            "options": [
-                "Deletes a file",
-                "Displays information",
-                "Creates a website automatically",
-                "Turns off the computer"
-            ],
-            "answer": "Displays information",
-            "explanation": "print() displays text or other values on the screen."
-        },
-        {
-            "question": "Which symbol starts a comment in Python?",
-            "options": ["//", "#", "/*", "$"],
-            "answer": "#",
-            "explanation": "A # symbol starts a single-line comment in Python."
-        },
-        {
-            "question": "Which of these is a string in Python?",
-            "options": ["25", '"Hello"', "True", "3.14"],
-            "answer": '"Hello"',
-            "explanation": "A string is text. Text is commonly written inside quotes."
-        },
-        {
-            "question": "Which keyword is used to define a function?",
-            "options": ["func", "function", "def", "make"],
-            "answer": "def",
-            "explanation": "Python uses the def keyword to define a function."
-        },
-        {
-            "question": "What is the result of 3 + 2?",
-            "options": ["32", "5", "6", "1"],
-            "answer": "5",
-            "explanation": "The + operator adds the two numbers: 3 + 2 = 5."
-        }
-    ]
+    st.header("🧠 StudyBuddy Quiz")
+    st.write("Choose a subject and test your knowledge!")
 
-    with st.form("python_quiz"):
-        answers = []
+    quiz_data = {
+        "Python": [
+            {
+                "q": "What does print() do?",
+                "options": [
+                    "Deletes files", "Displays information",
+                    "Creates folders", "Shuts down the computer"
+                ],
+                "answer": "Displays information",
+                "why": "print() displays text and values."
+            },
+            {
+                "q": "Which symbol starts a Python comment?",
+                "options": ["//", "#", "$", "&"],
+                "answer": "#",
+                "why": "Python uses # for single-line comments."
+            },
+            {
+                "q": "Which keyword defines a function?",
+                "options": ["func", "make", "def", "loop"],
+                "answer": "def",
+                "why": "The def keyword defines a function."
+            },
+            {
+                "q": "What is the result of 4 * 3?",
+                "options": ["7", "12", "43", "1"],
+                "answer": "12",
+                "why": "* multiplies numbers, so 4 * 3 = 12."
+            },
+            {
+                "q": "Which data type stores True or False?",
+                "options": ["str", "int", "bool", "list"],
+                "answer": "bool",
+                "why": "The bool type represents True or False."
+            }
+        ],
+        "Science": [
+            {
+                "q": "Which gas do plants absorb for photosynthesis?",
+                "options": ["Oxygen", "Carbon dioxide", "Nitrogen", "Hydrogen"],
+                "answer": "Carbon dioxide",
+                "why": "Plants use carbon dioxide during photosynthesis."
+            },
+            {
+                "q": "What is the SI unit of force?",
+                "options": ["Joule", "Watt", "Newton", "Pascal"],
+                "answer": "Newton",
+                "why": "Force is measured in newtons (N)."
+            },
+            {
+                "q": "Which organ pumps blood around the body?",
+                "options": ["Lungs", "Brain", "Kidneys", "Heart"],
+                "answer": "Heart",
+                "why": "The heart pumps blood through the circulatory system."
+            },
+            {
+                "q": "What is the chemical formula for water?",
+                "options": ["CO2", "H2O", "O2", "NaCl"],
+                "answer": "H2O",
+                "why": "A water molecule contains two hydrogen atoms and one oxygen atom."
+            },
+            {
+                "q": "Which planet is known as the Red Planet?",
+                "options": ["Venus", "Jupiter", "Mars", "Mercury"],
+                "answer": "Mars",
+                "why": "Iron-rich dust gives Mars its reddish appearance."
+            }
+        ],
+        "Maths": [
+            {
+                "q": "What is 15 + 27?",
+                "options": ["32", "42", "41", "52"],
+                "answer": "42",
+                "why": "15 + 27 = 42."
+            },
+            {
+                "q": "What is 9 squared?",
+                "options": ["18", "72", "81", "99"],
+                "answer": "81",
+                "why": "9 squared means 9 × 9 = 81."
+            },
+            {
+                "q": "What is the perimeter of a square with side 5 cm?",
+                "options": ["10 cm", "20 cm", "25 cm", "15 cm"],
+                "answer": "20 cm",
+                "why": "A square has four equal sides: 4 × 5 = 20 cm."
+            },
+            {
+                "q": "Solve: x + 7 = 12",
+                "options": ["3", "4", "5", "6"],
+                "answer": "5",
+                "why": "Subtract 7 from both sides: x = 12 - 7 = 5."
+            },
+            {
+                "q": "What is 3/4 as a percentage?",
+                "options": ["25%", "50%", "75%", "80%"],
+                "answer": "75%",
+                "why": "3 ÷ 4 × 100 = 75%."
+            }
+        ]
+    }
 
-        for i, q in enumerate(questions):
-            st.subheader(f"Question {i + 1}")
-            st.write(q["question"])
+    subject = st.selectbox(
+        "Choose your subject",
+        list(quiz_data.keys())
+    )
 
-            selected = st.radio(
-                "Choose your answer:",
-                q["options"],
-                key=f"quiz_question_{i}",
-                index=None
-            )
-            answers.append(selected)
+    question_count = st.slider(
+        "Number of questions",
+        min_value=3,
+        max_value=5,
+        value=5
+    )
 
-        submitted = st.form_submit_button("Check My Score")
+    if st.button("🎲 Start New Quiz"):
+        selected_questions = random.sample(
+            quiz_data[subject], question_count
+        )
+        st.session_state.quiz_questions = selected_questions
+        st.session_state.quiz_subject = subject
+        st.session_state.quiz_submitted = False
 
-    if submitted:
-        score = 0
+    if (
+        "quiz_questions" in st.session_state
+        and st.session_state.quiz_subject == subject
+    ):
+        questions = st.session_state.quiz_questions
 
-        for i, q in enumerate(questions):
-            st.write(f"**Question {i + 1}: {q['question']}**")
+        with st.form("advanced_quiz"):
+            answers = []
 
-            if answers[i] == q["answer"]:
-                score += 1
-                st.success("Correct! " + q["explanation"])
-            else:
-                st.error(
-                    f"Correct answer: {q['answer']}. "
-                    + q["explanation"]
+            for i, q in enumerate(questions):
+                st.subheader(f"Question {i + 1}")
+                st.write(q["q"])
+
+                options = q["options"][:]
+                random.Random(i + 100).shuffle(options)
+
+                selected = st.radio(
+                    "Choose your answer:",
+                    options,
+                    index=None,
+                    key=f"advanced_{subject}_{i}"
                 )
+                answers.append(selected)
 
-        st.subheader(f"Your score: {score}/{len(questions)}")
+            submitted = st.form_submit_button("✅ Submit Quiz")
 
-        if score == len(questions):
-            st.balloons()
-            st.success("Perfect score! Excellent work!")
-        elif score >= 3:
-            st.success("Good job! Keep practising.")
-        else:
-            st.info("Keep learning and try again!")
+        if submitted:
+            score = sum(
+                answers[i] == q["answer"]
+                for i, q in enumerate(questions)
+            )
+
+            percentage = round(score / len(questions) * 100)
+
+            st.subheader("📊 Your Results")
+            st.metric("Score", f"{score}/{len(questions)}")
+            st.progress(percentage / 100)
+            st.write(f"**Percentage: {percentage}%**")
+
+            for i, q in enumerate(questions):
+                st.write(f"**Q{i + 1}: {q['q']}**")
+
+                if answers[i] == q["answer"]:
+                    st.success("Correct! " + q["why"])
+                else:
+                    st.error(
+                        f"Your answer: {answers[i] or 'Not answered'}"
+                    )
+                    st.info(
+                        f"Correct answer: {q['answer']}. {q['why']}"
+                    )
+
+            if percentage == 100:
+                st.balloons()
+                st.success("Perfect score! Outstanding work!")
+            elif percentage >= 60:
+                st.success("Good job! Keep practising.")
+            else:
+                st.info("Review the explanations and try again.")
+
 
 
 elif page == "Study Planner":
