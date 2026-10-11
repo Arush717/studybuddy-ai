@@ -177,7 +177,10 @@ elif page == "Quiz":
         "Choose your subject",
         list(quiz_data.keys())
     )
-
+difficulty = st.selectbox(
+    "Choose difficulty",
+    ["Easy", "Medium", "Hard"]
+)
     question_count = st.slider(
         "Number of questions",
         min_value=3,
@@ -185,12 +188,26 @@ elif page == "Quiz":
         value=5
     )
 
-    if st.button("🎲 Start New Quiz"):
-        selected_questions = random.sample(
-            quiz_data[subject], question_count
-        )
-        st.session_state.quiz_questions = selected_questions
-        st.session_state.quiz_subject = subject
+    
+if st.button("🎲 Start New Quiz"):
+    all_questions = quiz_data[subject]
+
+    if difficulty == "Easy":
+        available_questions = all_questions[:3]
+    elif difficulty == "Medium":
+        available_questions = all_questions[1:4]
+    else:
+        available_questions = all_questions[2:]
+
+    actual_count = min(question_count, len(available_questions))
+
+    selected_questions = random.sample(
+        available_questions, actual_count
+    )
+
+    st.session_state.quiz_questions = selected_questions
+    st.session_state.quiz_subject = subject
+    st.session_state.quiz_difficulty = difficulty
 
     if (
         "quiz_questions" in st.session_state
