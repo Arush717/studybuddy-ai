@@ -102,13 +102,13 @@ elif page == "Study Planner":
 
 
 
+
 elif page == "AI Study Assistant":
     st.header("🤖 AI Study Assistant")
     st.write("Ask a study question and get a simple explanation!")
 
     topic = st.text_input("Enter your question")
 
-   
     if st.button("Explain"):
         if topic.strip():
             question = topic.strip().lower()
@@ -116,23 +116,21 @@ elif page == "AI Study Assistant":
             answers = {
                 "photosynthesis": (
                     "Photosynthesis is how green plants make "
-                    "their own food using sunlight, water, "
-                    "and carbon dioxide. They release oxygen."
+                    "food using sunlight, water, and carbon dioxide. "
+                    "They release oxygen."
                 ),
                 "python": (
                     "Python is a beginner-friendly programming "
-                    "language. You can use it to build apps, "
-                    "automate tasks, and work with AI."
+                    "language used to build apps, automate tasks, "
+                    "and work with AI."
                 ),
                 "gravity": (
-                    "Gravity is a force that attracts objects "
-                    "toward each other. Earth's gravity pulls "
-                    "objects toward the ground."
+                    "Gravity attracts objects toward each other. "
+                    "Earth's gravity pulls objects toward the ground."
                 ),
                 "water cycle": (
-                    "The water cycle is the continuous movement "
-                    "of water through evaporation, condensation, "
-                    "and precipitation."
+                    "The water cycle includes evaporation, "
+                    "condensation, and precipitation."
                 ),
             }
 
@@ -143,7 +141,6 @@ elif page == "AI Study Assistant":
                     matched_answer = answer
                     break
 
-            
             if matched_answer:
                 st.success(matched_answer)
             else:
@@ -151,7 +148,6 @@ elif page == "AI Study Assistant":
                     "I don't have an answer for that topic yet. "
                     "Try photosynthesis, Python, gravity, "
                     "or water cycle."
-             else:
+                )
+        else:
             st.warning("Please enter a question first.")
-
-st.caption("StudyBuddy AI • Better Study Habits, Brighter Future 💙")
