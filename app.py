@@ -152,9 +152,6 @@ elif page == "AI Study Assistant":
                     "or water cycle."
                 )
         else:
-            st.warning("Please enter a question first.")
-
-        else:
-            st.warning("Please enter a question first.")
+           
 
 st.caption("StudyBuddy AI • Better Study Habits, Brighter Future 💙")
