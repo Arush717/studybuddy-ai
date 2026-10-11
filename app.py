@@ -151,8 +151,7 @@ elif page == "AI Study Assistant":
                     "I don't have an answer for that topic yet. "
                     "Try photosynthesis, Python, gravity, "
                     "or water cycle."
-                )
-        else:
+             else:
             st.warning("Please enter a question first.")
 
 st.caption("StudyBuddy AI • Better Study Habits, Brighter Future 💙")
