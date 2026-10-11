@@ -108,13 +108,52 @@ elif page == "AI Study Assistant":
 
     topic = st.text_input("Enter your question")
 
+   
     if st.button("Explain"):
         if topic.strip():
-            st.info(
-                "Your question: " + topic +
-                "\n\nNext, we'll connect an AI model "
-                "to generate real answers!"
-            )
+            question = topic.strip().lower()
+
+            answers = {
+                "photosynthesis": (
+                    "Photosynthesis is how green plants make "
+                    "their own food using sunlight, water, "
+                    "and carbon dioxide. They release oxygen."
+                ),
+                "python": (
+                    "Python is a beginner-friendly programming "
+                    "language. You can use it to build apps, "
+                    "automate tasks, and work with AI."
+                ),
+                "gravity": (
+                    "Gravity is a force that attracts objects "
+                    "toward each other. Earth's gravity pulls "
+                    "objects toward the ground."
+                ),
+                "water cycle": (
+                    "The water cycle is the continuous movement "
+                    "of water through evaporation, condensation, "
+                    "and precipitation."
+                ),
+            }
+
+            matched_answer = None
+
+            for keyword, answer in answers.items():
+                if keyword in question:
+                    matched_answer = answer
+                    break
+
+            if matched_answer:
+                st.success(matched_answer)
+            else:
+                st.info(
+                    "I don't have an answer for that topic yet. "
+                    "Try photosynthesis, Python, gravity, "
+                    "or water cycle."
+                )
+        else:
+            st.warning("Please enter a question first.")
+
         else:
             st.warning("Please enter a question first.")
 
